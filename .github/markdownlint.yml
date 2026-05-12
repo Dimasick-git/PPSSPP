@@ -1,0 +1,29 @@
+default: true
+
+MD013:
+  line_length: 120
+  heading_line_length: 120
+  code_block_line_length: 120
+  code_blocks: false
+  tables: false
+
+MD033:
+  allowed_elements:
+    - br
+    - details
+    - summary
+    - img
+
+MD041:
+  level: 1
+
+MD012:
+  maximum: 1
+
+MD034: true
+MD032: true
+MD022: true
+
+MD009:
+  br_spaces: 2
+  strict: false
