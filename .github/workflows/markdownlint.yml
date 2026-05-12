@@ -1,41 +1,26 @@
-# Конфигурация markdownlint
-default: true
+name: Markdown Lint
 
-# MD013 - ограничение длины строки
-MD013:
-  line_length: 120        # Увеличиваем лимит до 120 символов
-  heading_line_length: 120
-  code_block_line_length: 120
-  code_blocks: false      # Не проверять блоки кода
-  tables: false           # Не проверять таблицы
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# MD033 - разрешить HTML теги
-MD033:
-  allowed_elements:
-    - br
-    - details
-    - summary
-    - img
-    - p
+jobs:
+  md_lint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
 
-# MD041 - первая строка должна быть H1
-MD041:
-  level: 1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-# MD012 - не более 1 пустой строки подряд
-MD012:
-  maximum: 1
-
-# MD034 - запрет голых URL (оборачивать в <>  или [text](url))
-MD034: true
-
-# MD032 - списки должны быть окружены пустыми строками
-MD032: true
-
-# MD022 - заголовки должны быть окружены пустыми строками
-MD022: true
-
-# MD009 - запрет trailing spaces
-MD009:
-  br_spaces: 2            # Разрешить 2 пробела для <br>
-  strict: false
+      - name: Run markdownlint
+        uses: articulate/actions-markdownlint@v1
+        with:
+          config: .github/markdownlint.yml
+          files: '**/*.md'
+          ignore: node_modules
+          fix: false
