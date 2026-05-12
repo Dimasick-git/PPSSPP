@@ -104,3 +104,4 @@ https://github.com/Dimasick-git/PPSSPP
 
 ## Тестовый раздел
 Данный раздел добавлен для проверки работы GitHub Actions.
+ 
