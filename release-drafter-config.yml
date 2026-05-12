@@ -1,0 +1,88 @@
+# Шаблон названия релиза
+name-template: 'v$RESOLVED_VERSION'
+
+# Шаблон тега релиза
+tag-template: 'v$RESOLVED_VERSION'
+
+# Категории для changelog на основе меток PR
+categories:
+  - title: '🚀 Новые функции'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: '🐛 Исправления багов'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: '🔧 Улучшения'
+    labels:
+      - 'improvement'
+      - 'refactor'
+  - title: '📚 Документация'
+    labels:
+      - 'documentation'
+      - 'docs'
+  - title: '🔒 Безопасность'
+    labels:
+      - 'security'
+  - title: '⬆️ Зависимости'
+    labels:
+      - 'dependencies'
+      - 'deps'
+
+# Автоматическое определение версии по меткам
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - 'breaking-change'
+  minor:
+    labels:
+      - 'minor'
+      - 'feature'
+      - 'enhancement'
+  patch:
+    labels:
+      - 'patch'
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  default: patch
+
+# Исключить определённые PR из changelog
+exclude-labels:
+  - 'skip-changelog'
+  - 'release'
+
+# Шаблон описания релиза
+template: |
+  ## 📋 Что нового в $RESOLVED_VERSION
+
+  $CHANGES
+
+  ---
+  **Полный список изменений**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
+
+# Автоматически назначать метки на PR
+autolabeler:
+  - label: 'documentation'
+    files:
+      - '*.md'
+      - 'docs/**'
+  - label: 'bug'
+    branch:
+      - '/^fix\/.+/'
+      - '/^bugfix\/.+/'
+      - '/^hotfix\/.+/'
+  - label: 'feature'
+    branch:
+      - '/^feature\/.+/'
+      - '/^feat\/.+/'
+  - label: 'dependencies'
+    files:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'yarn.lock'
+      - 'requirements*.txt'
+      - 'CMakeLists.txt'
